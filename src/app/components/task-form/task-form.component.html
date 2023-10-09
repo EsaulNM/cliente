@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-body">
+        <form (submit)="addTask(newTitle, newDescription)">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Titulo de la Tarea" #newTitle>
+            </div><br>
+            <div class="form-group">
+                <textarea cols="30" rows="10" placeholder="Escribe la Tarea" class="form-control" #newDescription></textarea>
+            </div><br>
+            <button class="btn btn-primary btn-lock">
+                Agregar
+            </button>
+        </form>
+    </div>
+</div>
