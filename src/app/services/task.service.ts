@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'
 import {Task} from '../models/Task';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+  private apiUrl = 'http://localhost:4000/tasks'
+
   tasks: Task[];
-  constructor() { 
+  constructor(private http: HttpClient) { 
     this.tasks = []
   }
 
-  getTasks() {
+  getTask() {
+    return this.http.get<Task[]>(this.apiUrl);
+  }
+
+  addTask(task: Task) {
+    return this.http.post<Task>(this.apiUrl, task);
+  }
+
+  deleteTask(task: Task) {
+    const url = `${this.apiUrl}/${task.id}`;
+    return this.http.delete<Task>(url);
+  }
+
+ /*  getTasks() {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks === null) {
       return this.tasks; 
@@ -47,5 +64,5 @@ export class TaskService {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
       }
     }
-  }
+  } */
 }

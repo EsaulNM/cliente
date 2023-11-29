@@ -8,11 +8,11 @@ import { TaskService } from 'src/app/services/task.service'; '../../service/task
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
-  hide: boolean = true;
+  
   @Input()
   task!: Task;
   constructor(public taskService: TaskService){
-
+    
   }
 
   deleteTask(task: Task){

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService} from '../../services/task.service';
 import { Task } from '../../models/Task';
 
@@ -9,15 +9,29 @@ import { Task } from '../../models/Task';
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
-
+export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
 
-  constructor( public taskService: TaskService ) {
+  constructor(private taskService: TaskService) { }
+
+  ngOnInit(): void {
+    this.getTasks();
   }
 
-  ngOnInit() {
-    this.tasks = this.taskService.getTasks();
+  getTasks() {
+    this.taskService.getTasks().subscribe(tasks => {
+      this.tasks = tasks;
+    });
+  }
+  addTask(task: Task) {
+    this.taskService.addTask(task).subscribe(newTask => {
+      this.tasks.push(newTask);
+    });
   }
 
+  deleteTask(task: Task) {
+    this.taskService.deleteTask(task).subscribe(() => {
+      this.tasks = this.tasks.filter(t => t !== task);
+    });
+  }
 } 
